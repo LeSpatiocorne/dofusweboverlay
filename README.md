@@ -47,3 +47,10 @@ Site qui regroupe un énorme nombre d'informations pour les quêtes, les succès
 [Metamob](https://www.metamob.fr)
 
 Permet de lister les archimonstres pour le suivi de la quête l'éternelle moisson.
+  
+  test
+  
+| Left-aligned | Center-aligned | Right-aligned |
+| :---         |     :---:      |          ---: |
+| git status   | git status     | git status    |
+| git diff     | git diff       | git diff      |
