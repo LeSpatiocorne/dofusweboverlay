@@ -1,24 +1,15 @@
-import sys, keyboard, traceback
-from PyQt5.QtCore import QUrl, Qt
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget, QVBoxLayout, QWidget, QSlider, QLabel, QHBoxLayout, QShortcut
+import sys, traceback, wx, wx.html2
+from pynput import keyboard
 
-print("Starting...")
-
-class WebOverlayWindow(QMainWindow):
+class WebOverlayWindow(wx.Frame):
     def __init__(self):
-        super().__init__()
+        super().__init__(None, title="Dofus Web Overlay", size=(800, 600), style=wx.STAY_ON_TOP | wx.CAPTION | wx.RESIZE_BORDER)
 
-        self.setWindowTitle("Dofus Web Overlay")
-        self.setGeometry(100, 100, 800, 600)
 
-        self.setWindowFlag(Qt.WindowStaysOnTopHint)
+        self.panel = wx.Panel(self)
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
 
-        self.tab_widget = QTabWidget(self)
-
-        self.settings = QWebEngineSettings.globalSettings()
-        self.settings.setAttribute(QWebEngineSettings.WebAttribute.JavascriptCanAccessClipboard, True)
+        self.notebook = wx.Notebook(self.panel)
 
         self.add_tab("https://dofensive.com/fr", "Dofensive")
         self.add_tab("https://dofus-portals.fr", "Dofus-Portals")
@@ -30,74 +21,71 @@ class WebOverlayWindow(QMainWindow):
         self.add_tab("https://www.dofuspourlesnoobs.com", "Dofus pour les noobs")
         self.add_tab("https://www.metamob.fr", "Metamob")
 
-        self.settings_widget = QWidget(self)
-        self.settings_layout = QHBoxLayout(self.settings_widget)
+        self.settings_panel = wx.Panel(self.panel)
+        self.settings_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.transparency_slider = QSlider(self)
-        self.transparency_slider.setOrientation(1)
-        self.transparency_slider.valueChanged.connect(self.change_transparency)
+        self.transparency_label = wx.StaticText(self.settings_panel, label="Transparence :")
+        self.transparency_slider = wx.Slider(self.settings_panel, minValue=0, maxValue=100, value=100, style=wx.SL_HORIZONTAL)
+        self.transparency_slider.Bind(wx.EVT_SLIDER, self.change_transparency)
 
-        self.transparency_label = QLabel("Transparence :", self)
-        self.transparency_value_label = QLabel("100", self)
+        self.settings_sizer.Add(self.transparency_label, 0, wx.ALIGN_CENTER_VERTICAL)
+        self.settings_sizer.Add(self.transparency_slider, 0, wx.ALIGN_CENTER_VERTICAL)
 
-        self.settings_layout.addWidget(self.transparency_label)
-        self.settings_layout.addWidget(self.transparency_slider)
-        self.settings_layout.addWidget(self.transparency_value_label)
+        self.settings_panel.SetSizer(self.settings_sizer)
 
-        self.main_widget = QWidget(self)
-        self.layout = QVBoxLayout(self.main_widget)
+        self.sizer.Add(self.notebook, 1, wx.EXPAND)
+        self.sizer.Add(self.settings_panel, 0, wx.EXPAND)
 
-        self.layout.addWidget(self.tab_widget)
-        self.layout.addWidget(self.settings_widget)
+        self.panel.SetSizer(self.sizer)
 
-        self.setCentralWidget(self.main_widget)
+        self.Bind(wx.EVT_CLOSE, self.on_close)
 
-        self.shortcut_reset_transparency = QShortcut(QKeySequence("Ctrl+Alt+R"), self)
-        self.shortcut_reset_transparency.activated.connect(self.reset_transparency)
-
-        self.shortcut_toggle_window = QShortcut(QKeySequence("Ctrl+Alt+W"), self)
-        self.shortcut_toggle_window.activated.connect(self.toggle_window)
-
-        keyboard.add_hotkey("shift+ctrl+alt+a", self.reset_transparency)
-        keyboard.add_hotkey("shift+ctrl+alt+w", self.toggle_window)
-
-        self.clipboard = QApplication.clipboard()
-        self.clipboard.dataChanged.connect(self.handle_clipboard_change)
-
-    print("loaded main process")
-
-    def handle_clipboard_change(self):
-        mime_data = self.clipboard.mimeData()
-        if mime_data.hasText():
-            print("Nouveau contenu dans le presse-papiers:", mime_data.text())
+        # Ajoutez ces lignes pour définir les touches de raccourci et démarrer le listener
+        self.toggle_key = {keyboard.Key.ctrl, keyboard.Key.alt, keyboard.KeyCode.from_char('W')}
+        self.current_keys = set()
+        self.keyboard_listener = keyboard.Listener(on_press=self.on_key_press, on_release=self.on_key_release)
+        self.keyboard_listener.start()
 
     def add_tab(self, url, title):
-        browser = QWebEngineView(self)
-        browser.setUrl(QUrl(url))
-        self.tab_widget.addTab(browser, title)
+        browser_panel = wx.Panel(self.notebook)
+        browser_sizer = wx.BoxSizer(wx.VERTICAL)
+        browser = wx.html2.WebView.New(browser_panel)
+        browser.LoadURL(url)
+        browser_sizer.Add(browser, 1, wx.EXPAND)
+        browser_panel.SetSizer(browser_sizer)
+        self.notebook.AddPage(browser_panel, title)
 
-    def change_transparency(self, value):
-        self.transparency_value_label.setText(str(value))
-        self.setWindowOpacity(value / 100)
+    def change_transparency(self, event):
+        value = event.GetEventObject().GetValue()
+        self.SetTransparent(int(value * 2.55))
 
-    def reset_transparency(self):
-        self.transparency_slider.setValue(100)
+    # Ajoutez ces méthodes pour gérer les événements du clavier et afficher/masquer la fenêtre
+    def on_key_press(self, key):
+        if key in self.toggle_key:
+            self.current_keys.add(key)
+            if self.current_keys == self.toggle_key:
+                wx.CallAfter(self.toggle_window)  # Utilisez CallAfter pour éviter les problèmes de thread
+
+    def on_key_release(self, key):
+        if key in self.current_keys:
+            self.current_keys.remove(key)
 
     def toggle_window(self):
-        if self.windowOpacity() == 0:
-            self.setWindowOpacity(100)
-        elif self.windowOpacity() > 0:
-            self.setWindowOpacity(0)
-
-    print("loaded definitions")
-
+        if self.IsShown():
+            self.Hide()
+        else:
+            self.Show()
+            self.Raise()
+    def on_close(self, event):
+        self.keyboard_listener.stop()
+        self.Destroy()
 
 if __name__ == "__main__":
     try:
-        app = QApplication(sys.argv)
+        app = wx.App()
         window = WebOverlayWindow()
-        window.show()
-        sys.exit(app.exec_())
+        window.Show()
+        app.MainLoop()
     except Exception as e:
         traceback.print_exc()
         sys.exit(1)
