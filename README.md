@@ -21,7 +21,7 @@ C'est littéralement un programme développé pour mon usage personnel, mais je 
 
 Bestiaire pour connaître les sorts des monstres que vous affrontez.
 
-[Dofus-Portals](https://dofensive.com/fr](https://dofus-portals.fr)
+[Dofus-Portals](https://dofensive.com/fr](https://dofus-portals.fr/)
 
 Site communautaire de recencement des portails des dimensions.
 
