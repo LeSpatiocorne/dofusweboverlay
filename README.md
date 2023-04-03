@@ -1,7 +1,11 @@
 ## DofusWebOverlay
 
 ![GitHub all releases](https://img.shields.io/github/downloads/LeSpatiocorne/dofusweboverlay/total)
-![PyQt5](https://img.shields.io/pypi/v/PyQt5)
+[![Python](https://img.shields.io/badge/Python-3.11-brightgreen)](https://www.python.org/)
+![PyPI](https://img.shields.io/pypi/v/PyQt5?label=PyQt5)
+![PyPI](https://img.shields.io/pypi/v/PyQtWebEngine?label=PyQtWebEngine)
+![PyPI](https://img.shields.io/pypi/v/keyboard?label=keyboard)
+
 
 - Keyboard
 - PyQt5
