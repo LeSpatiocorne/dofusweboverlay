@@ -1,7 +1,8 @@
-# dofusweboverlay
-Le projet ne proposera pas de méthode d'installation facile.
-Si vous voulez vous en servir chez vous, il installer les prérequis sur votre machine : 
-Python 3
+## DofusWebOverlay
+
+![GitHub all releases](https://img.shields.io/github/downloads/LeSpatiocorne/dofusweboverlay/total)
+![PyQt5](https://img.shields.io/pypi/v/PyQt5)
+
 - Keyboard
 - PyQt5
 - PyQtWebEngine
