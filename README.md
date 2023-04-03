@@ -1,4 +1,13 @@
 # dofusweboverlay
+Le projet ne proposera pas de méthode d'installation facile.
+Si vous voulez vous en servir chez vous, il installer les prérequis sur votre machine : 
+Python 3
+- Keyboard
+- PyQt5
+- PyQtWebEngine
+Sur Windows il suffit d'importer les librairies avec "pip install <librairie>"
+Sur Mac, il vous faudra également installer PyQt et Xcode (dont PyQt dépends).
+
 Tout petit projet qui vise à simplement avoir une fenêtre de navigateur superposée à l'écran. Utile pour ne pas faire des alt+tab en permanence si vous avez besoin d'accéder à des sites de base.
 
 
