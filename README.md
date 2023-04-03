@@ -7,10 +7,6 @@
 ![PyPI](https://img.shields.io/pypi/v/keyboard?label=keyboard)
 
 
-- Keyboard
-- PyQt5
-- PyQtWebEngine
-
 Sur Windows il suffit d'importer les librairies avec "pip install <librairie>"
 Sur Mac, il vous faudra également installer PyQt et Xcode (dont PyQt dépends).
 
