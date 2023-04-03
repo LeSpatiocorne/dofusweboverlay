@@ -17,40 +17,16 @@ Le projet est en python et utilise PyQt5 pour assurer les fonctionnalités d'un 
 L'application est faite pour disposer d'un ensemble "essentiel" d'onglets ouverts sur un liens bien précis pour avoir sous la main les pages internets les plus utiles.
 C'est littéralement un programme développé pour mon usage personnel, mais je vous le partage publiquement dans le cas ou vous voudriez vous-même vous en servir.
 
-[Dofensive](https://dofensive.com/fr)
-
-Bestiaire pour connaître les sorts des monstres que vous affrontez.
-
-[Dofus-Portals](https://dofus-portals.fr/)
-
-Site communautaire de recencement des portails des dimensions.
-
-[DofusDB](https://dofusdb.fr/fr/tools/treasure-hunt)
-
-Site qui dispose d'un grand nombre d'informations sur les données utiles du jeu, mais ici il est ouvert par défaut sur l'outil de chasse au trésors.
-
-[DofusPlanet](https://dofusplanet.com/)
-
-Super outils pour optimiser et gérer ses quêtes notamment pour avancer les dofus.
 
 
-[DofusBook](https://www.dofusbook.net/fr/)
-
-Site de construction et gestion de stuffs
 
 
-[Dofus Pour Les Noobs](https://www.dofuspourlesnoobs.com)
-
-Site qui regroupe un énorme nombre d'informations pour les quêtes, les succès et les donjons.
 
 
-[Metamob](https://www.metamob.fr)
-
-Permet de lister les archimonstres pour le suivi de la quête l'éternelle moisson.
   
   test
   
-| Left-aligned | Center-aligned | Right-aligned |
-| :---         |     :---:      |          ---: |
-| git status   | git status     | git status    |
-| git diff     | git diff       | git diff      |
+|[Dofensive](https://dofensive.com/fr)|[Dofus-Portals](https://dofus-portals.fr/)|[DofusDB](https://dofusdb.fr/fr/tools/treasure-hunt)|[DofusPlanet](https://dofusplanet.com/)|[DofusBook](https://www.dofusbook.net/fr/)|[Dofus Pour Les Noobs](https://www.dofuspourlesnoobs.com)|[Metamob](https://www.metamob.fr)| Right-aligned |
+|     :---:    |     :---:      |     :---:     |     :---:     |     :---:    |     :---:      |     :---:     |     :---:     |
+|Bestiaire pour connaître les sorts des monstres que vous affrontez.|Site communautaire de recencement des portails des dimensions.|Site qui dispose d'un grand nombre d'informations sur les données utiles du jeu, mais ici il est ouvert par défaut sur l'outil de chasse au trésors.|Super outils pour optimiser et gérer ses quêtes notamment pour avancer les dofus.|Site de construction et gestion de stuffs|Site qui regroupe un énorme nombre d'informations pour les quêtes, les succès et les donjons. |Permet de lister les archimonstres pour le suivi de la quête l'éternelle moisson.|
+
