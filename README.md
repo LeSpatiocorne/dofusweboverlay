@@ -1,3 +1,8 @@
+
+# ⚠️ Projet déprécié ! 
+J'ai migré l'overlay sous Electron.
+Vous pouvez retrouver la nouvelle version ici : https://github.com/LeSpatiocorne/DofusOverlayElectron
+C'est encore un proof of concept, les premiers fonction "custom" sont encore un peu bancales et bugués.
 ## DofusWebOverlay
 
 ![GitHub all releases](https://img.shields.io/github/downloads/LeSpatiocorne/dofusweboverlay/total)
